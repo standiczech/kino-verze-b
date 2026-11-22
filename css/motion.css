@@ -1,0 +1,110 @@
+/* Pohyb nemění velikosti prvků ani rozložení původních wireframů. */
+
+.hero-playback { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.hero-bottom { gap: 12px; }
+.hero-credit { min-width: 0; }
+.hero-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 30px; padding: 5px 9px; border: 1px solid #707d96; border-radius: 4px; background: #11182799; color: #edf2ff; font-size: 9px; white-space: nowrap; }
+.hero-toggle:hover { background: #35415a; border-color: #bac8e2; }
+.hero-toggle .icon { width: 12px; height: 12px; }
+.hero-dots button { position: relative; }
+.hero-progress { position: absolute; top: calc(50% - 1.5px); left: 0; width: 100%; height: 3px; background: white; transform: scaleX(0); transform-origin: left; pointer-events: none; }
+.hero-dots button:not([aria-current=true]) .hero-progress { visibility: hidden; }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root { --motion-ease: cubic-bezier(.2,.7,.2,1); }
+  body::after { animation: obzor-starlight 7500ms ease-in-out infinite alternate; }
+
+  @keyframes obzor-starlight {
+    from { opacity: .27; }
+    to { opacity: .68; }
+  }
+
+  /* Krátký vstup hlavního titulku a úvodních informací. */
+  .hero-content > .eyebrow, .hero-content > h1, .hero-content > .hero-copy, .hero-content > .hero-actions,
+  .page-heading > h1, .page-heading > .lead { animation: obzor-enter 750ms var(--motion-ease) both; }
+  .hero-content > h1, .page-heading > .lead { animation-delay: 100ms; }
+  .hero-content > .hero-copy { animation-delay: 180ms; }
+  .hero-content > .hero-actions { animation-delay: 250ms; }
+
+  /* Skrytí obsahu se aktivuje jen s fungujícím IntersectionObserver v JS. */
+  .motion-reveal { opacity: 0; transform: translateY(17px); transition: opacity 650ms var(--motion-ease) var(--reveal-delay, 0ms), transform 650ms var(--motion-ease) var(--reveal-delay, 0ms); }
+  .motion-reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .motion-reveal:focus-within { opacity: 1; transform: none; transition: none; }
+
+  /* Odezva ovládání a plakátů. Hover efekty pouze pro přesný ukazatel. */
+  .btn .icon, .text-link .icon, .circle-arrow .icon { transition: transform 220ms var(--motion-ease); }
+  .film-card .poster { transition: transform 330ms var(--motion-ease), box-shadow 330ms, border-color 330ms; }
+  .poster img { transition: transform 650ms var(--motion-ease), filter 400ms; }
+  .seat { transition: transform 160ms var(--motion-ease), background-color 160ms, border-color 160ms; }
+  .seat[aria-pressed=true] { animation: obzor-seat 260ms var(--motion-ease); }
+  .day, .pagination button, .segmented button { transition: background-color 180ms, color 180ms, border-color 180ms; }
+  .form-field input, .form-field textarea, .form-field select { transition: border-color 180ms, box-shadow 180ms; }
+  .form-field input:focus, .form-field textarea:focus, .form-field select:focus { box-shadow: 0 0 0 3px #d91b3c22; }
+  .member-card { transition: transform 450ms var(--motion-ease), box-shadow 450ms; }
+
+  /* Dialogy a potvrzení se objeví krátkým, jednorázovým pohybem. */
+  .dialog[open] { animation: obzor-dialog 230ms var(--motion-ease); }
+  .dialog[open]::backdrop { animation: obzor-fade 230ms ease-out; }
+  .mobile-nav.is-open { animation: obzor-menu 220ms var(--motion-ease); }
+  .toast:not([hidden]) { animation: obzor-toast 260ms var(--motion-ease); }
+  .success-icon { animation: obzor-success 440ms var(--motion-ease); }
+  .live-dot { animation: obzor-glow 1400ms ease-out 3; }
+
+  @keyframes obzor-enter {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes obzor-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes obzor-dialog {
+    from { opacity: 0; transform: translateY(14px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes obzor-menu {
+    from { opacity: 0; transform: translateY(-7px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes obzor-toast {
+    from { opacity: 0; transform: translate(-50%, 10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+  @keyframes obzor-seat {
+    0%, 100% { transform: scale(1); }
+    55% { transform: translateY(-3px) scale(1.09); }
+  }
+  @keyframes obzor-success {
+    0% { opacity: 0; transform: scale(.75); }
+    65% { opacity: 1; transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes obzor-glow {
+    from { box-shadow: 0 0 0 0 #d91b3c66; }
+    to { box-shadow: 0 0 0 8px #d91b3c00; }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .film-card:hover .poster { transform: translateY(-6px); box-shadow: 0 21px 34px #0007; }
+  .btn:hover .icon, .text-link:hover .icon, .film-card:hover .circle-arrow .icon { transform: translateX(3px); }
+  .seat:not(:disabled):hover { transform: translateY(-2px) scale(1.05); }
+  .club-art:hover .member-card { transform: rotate(-5deg) translateY(-5px); box-shadow: 0 27px 45px #0008; }
+}
+
+@media (max-width: 700px) { .hero-playback { gap: 10px; } }
+@media (max-width: 420px) {
+  .hero-toggle span { display: none; }
+  .hero-toggle { min-width: 30px; padding: 6px; }
+}
+
+/* Přístupný a tiskový režim zobrazí veškerý obsah bez čekání na animaci. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .motion-reveal { opacity: 1; transform: none; }
+  .hero-image { transform: none !important; }
+  .hero-progress, .hero-toggle { display: none; }
+}
+@media print {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .motion-reveal { opacity: 1; transform: none; }
+  .hero-toggle, .hero-progress { display: none !important; }
+}

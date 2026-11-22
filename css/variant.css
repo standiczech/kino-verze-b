@@ -1,0 +1,24 @@
+.schedule{padding:32px 0 24px;border-bottom:1px solid var(--line)}
+.schedule h1{font-size:clamp(34px,4vw,50px);margin:0 0 18px}
+.tools,#day-tabs{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tools{gap:12px;margin-bottom:24px}
+.tools button,.tools select,.calendar{height:40px;color:var(--ink);background:var(--surface);border:1px solid #4b5260;border-radius:4px;font:600 14px var(--body)}
+.tools button{padding:0 14px}
+.tools select{padding:0 14px;min-width:155px}
+.tools button[aria-pressed=true]{background:var(--accent);border-color:var(--accent)}
+.calendar{position:relative;width:42px;display:grid;place-items:center}
+.calendar input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.calendar input::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:auto;height:auto;cursor:pointer}
+.calendar:focus-within{outline:2px solid #ffc665}
+.day-heading{display:flex;align-items:center;gap:16px;margin:20px 0 4px;font:700 19px var(--display);letter-spacing:.025em;text-transform:uppercase}
+.day-heading:after{content:"";flex:1;height:1px;background:var(--line)}
+.show-row{display:flex;align-items:center;gap:20px;padding:12px 0;border-bottom:1px solid #30333d}
+.show-row img{display:block;width:84px;height:110px;object-fit:cover;border-radius:4px}
+.show-row h3{font:700 24px/1.1 var(--display);margin:0 0 4px}
+.show-row p{margin:0;color:var(--muted);font-size:14px}
+.times{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.times a.btn{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:78px;min-height:0;padding:6px 12px;font:700 17px/1 var(--display)}
+.times small{font:400 11px var(--body);text-transform:none;letter-spacing:0}
+#pages{margin:18px 0 0;display:flex;align-items:center;justify-content:center;gap:6px}
+#pages button:disabled{opacity:.4;cursor:default}
+@media(max-width:700px){.tools{gap:8px}.tools select{min-width:0;max-width:47%}#day-tabs{width:100%;gap:4px}#day-tabs button{flex:1;padding:0 5px}.show-row{gap:12px}.show-row h3{font-size:21px}.show-row img{width:64px;height:98px}.times a.btn{min-width:61px}.schedule{padding-top:24px}.tools select{flex:1}.day-heading{font-size:17px}}

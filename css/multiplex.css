@@ -1,0 +1,463 @@
+/* KINO OBZOR — vzhled inspirovaný multiplexy.
+ * style.css obsahuje základní rozložení a chování prvků.
+ * Tento soubor sjednocuje barvy, typografii a vzhled všech osmi stránek.
+ */
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/roboto-regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/roboto-semibold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/roboto-bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Saira Semi Condensed';
+  src: url('../assets/saira-semi-condensed-bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --paper: #101115;
+  --ink: #f6f6f7;
+  --muted: #b0b3bd;
+  --line: #343843;
+  --green: #d91b3c;
+  --orange: #d91b3c;
+  --surface: #191c24;
+  --surface-alt: #262a35;
+  --accent: #d91b3c;
+  --accent-hover: #e42340;
+  --body: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --display: 'Saira Semi Condensed', 'Arial Narrow', Arial, sans-serif;
+  --shadow: 0 24px 80px #0008;
+}
+
+/* Základ, typografie a ovládací prvky */
+body { background: var(--paper); color: var(--ink); font-family: var(--body); }
+/* Dvě čistě dekorativní vrstvy hvězd pod obsahem všech stránek.
+ * Pevné pozadí neposouvá rozložení a neblokuje klikání ani výběr textu.
+ */
+html { background: var(--paper); }
+body { position: relative; isolation: isolate; }
+body::before, body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+}
+body::before {
+  z-index: -2;
+  opacity: .65;
+  background-size: 431px 389px;
+  background-image:
+    radial-gradient(1px 1px at 6% 12%, #e0ecffb3 80%, transparent 100%),
+    radial-gradient(.7px .7px at 23% 39%, #cedfff99 80%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 46% 8%, #edf5ffb3 80%, transparent 100%),
+    radial-gradient(.8px .8px at 68% 29%, #c2d7ff99 80%, transparent 100%),
+    radial-gradient(1px 1px at 89% 15%, #f3f8ffb3 80%, transparent 100%),
+    radial-gradient(.7px .7px at 12% 66%, #e2ecff99 80%, transparent 100%),
+    radial-gradient(1px 1px at 39% 55%, #cfdeffa6 80%, transparent 100%),
+    radial-gradient(.8px .8px at 62% 76%, #d9e6ff99 80%, transparent 100%),
+    radial-gradient(1px 1px at 84% 61%, #ffdda6a6 80%, transparent 100%),
+    radial-gradient(.7px .7px at 28% 91%, #e2edff99 80%, transparent 100%),
+    radial-gradient(1px 1px at 72% 96%, #d5e4ffb3 80%, transparent 100%);
+}
+body::after {
+  z-index: -1;
+  opacity: .48;
+  background-size: 587px 463px;
+  background-image:
+    radial-gradient(4px .65px at 15% 24%, #e3efffd9 15%, transparent 100%),
+    radial-gradient(.65px 4px at 15% 24%, #e3efffd9 15%, transparent 100%),
+    radial-gradient(3px 3px at 15% 24%, #a4c5ff40 10%, transparent 100%),
+    radial-gradient(3px .6px at 76% 71%, #e3efffd9 15%, transparent 100%),
+    radial-gradient(.6px 3px at 76% 71%, #e3efffd9 15%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 76% 71%, #a4c5ff40 10%, transparent 100%);
+}
+h1, h2 { font-family: var(--display); font-weight: 700; line-height: 1.1; text-transform: uppercase; letter-spacing: -.01em; }
+h3 { letter-spacing: -.025em; }
+.container { width: min(1200px, calc(100% - 80px)); }
+.section { padding-block: 58px; }
+.eyebrow { font-size: 10px; letter-spacing: .16em; }
+.lead { font-size: 16px; line-height: 1.8; }
+::selection { background: var(--accent); color: white; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline-color: #ffc665; }
+.btn { border-radius: 4px; border-color: var(--accent); background: var(--accent); color: white; font-size: 12px; }
+.btn:hover, .btn-peach:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn-peach { background: var(--accent); border-color: var(--accent); color: white; }
+.btn-light { background: var(--surface-alt); border-color: #555e72; color: white; }
+.btn-light:hover { background: #353c4e; border-color: #8994ac; }
+.btn-ghost { background: transparent; border-color: #596174; color: white; }
+.btn-ghost:hover { background: var(--surface-alt); border-color: #8994ac; }
+.text-link { border-bottom-color: var(--accent); }
+.text-link:hover { color: #ff9caf; }
+.icon-btn { border-color: #606a7e; background: #191c24e6; }
+.icon-btn:hover { background: var(--accent); border-color: var(--accent); }
+.skip-link { background: var(--accent); color: white; }
+main:focus { outline: none; }
+
+/* Hlavička: původní umístění značky, navigace, vyhledávání a účtu */
+.site-header { height: 88px; background: #101115f5; border-bottom-color: var(--line); }
+.header-inner { gap: 40px; }
+.brand { color: white; }
+.brand svg [stroke] { stroke: var(--accent); }
+.brand svg circle { fill: var(--accent); }
+.brand-name small { color: #bfc5d1; font-size: 8px; letter-spacing: .42em; margin-bottom: 5px; }
+.brand-name b { font: 700 30px/.95 var(--display); letter-spacing: .015em; }
+.desktop-nav { gap: 26px; }
+.desktop-nav a { height: 100%; display: flex; align-items: center; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #d8dce6; }
+.desktop-nav a:hover { color: white; }
+.desktop-nav a[aria-current=page]:after { bottom: 0; background: var(--accent); }
+.header-actions { gap: 18px; }
+.header-actions .btn { border-radius: 4px; font-size: 11px; }
+.login-link { font-size: 11px; white-space: nowrap; }
+.login-link:hover { color: #ff9caf; }
+.header-search { border: 1px solid #424958; background: var(--surface); border-radius: 4px; padding: 4px 8px; }
+.header-search input { color: white; font-size: 11px; width: 94px; }
+.header-search input::placeholder { color: #b4bdce; }
+.header-search button { color: #b4bdce; }
+
+/* Filmový banner: stejný obsah, výraznější obraz a plakátové písmo */
+.hero { min-height: 478px; background: #080d17; border: 1px solid #353e51; border-radius: 6px; isolation: isolate; }
+.hero:before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--accent); z-index: 3; }
+.hero:after { background: linear-gradient(90deg, #080c15f5, #080c15c9 30%, #080c1522 78%), linear-gradient(0deg, #080c15d9, transparent 50%); }
+.hero-image { opacity: .94; object-position: center 45%; }
+.hero-content { padding: 48px 52px 70px; max-width: 750px; }
+.hero .eyebrow { display: flex; align-items: center; gap: 10px; color: #f2bac6; margin-bottom: 22px; font-size: 10px; }
+.hero .eyebrow:before { content: ''; width: 22px; height: 2px; background: var(--accent); }
+.hero h1 { font-size: clamp(48px, 5.4vw, 74px); line-height: 1.06; max-width: 680px; letter-spacing: -.01em; text-shadow: 0 3px 30px #0006; }
+.hero h1 em { font-family: inherit; font-style: normal; font-weight: 700; color: white; letter-spacing: inherit; }
+.hero-copy { color: #c8d0df; font-size: 13px; line-height: 1.8; max-width: 395px; }
+.hero-actions .btn-light { background: #11151c88; border-color: #828da5; color: white; backdrop-filter: blur(6px); }
+.hero-actions .btn-light:hover { background: #30394ed9; border-color: #bfc8db; }
+.hero-bottom { left: 52px; right: 32px; bottom: 22px; }
+.hero-credit { color: #b5bfd2; font-size: 10px; }
+.hero-dots { gap: 8px; }
+.hero-dots button { width: 32px; height: 24px; display: flex; align-items: center; padding: 0; border: 0; border-radius: 0; background: transparent; }
+.hero-dots button:before { content: ''; width: 100%; height: 3px; background: #9ba6bd; }
+.hero-dots button[aria-current=true] { width: 32px; border-radius: 0; background: transparent; }
+.hero-dots button[aria-current=true]:before { background: var(--accent); }
+
+/* Tři portrétní plakáty a šipky po stranách, podle wireframu */
+.poster-section { position: relative; padding-block: 43px 48px; }
+.poster-head h2 { font-size: 32px; }
+.poster-head .eyebrow { margin-bottom: 8px; }
+.carousel-controls { display: contents; }
+.carousel-controls .icon-btn { position: absolute; z-index: 3; top: calc(50% + 14px); }
+#poster-prev { left: 0; }
+#poster-next { right: 0; }
+.poster-track { gap: 44px; padding-inline: 66px; }
+.poster { height: auto; aspect-ratio: 3 / 4; border: 1px solid #414d65; border-radius: 5px; background: #17202d; box-shadow: 0 15px 30px #0004; }
+.poster img { filter: saturate(.9); }
+.poster:after { background: linear-gradient(0deg, #07101ef5, #10182833 68%, #070a1040); }
+.film-card:hover .poster { border-color: #8e9bb6; }
+.film-card:hover .poster img { filter: saturate(1.12); }
+.poster-title { bottom: 26px; left: 22px; right: 22px; font: 700 clamp(27px, 3vw, 39px)/1.08 var(--display); letter-spacing: -.01em; text-shadow: 0 2px 14px #0009; }
+.poster-title small { margin-bottom: 14px; font: 700 8px/1.7 var(--body); letter-spacing: .15em; }
+.poster .tag { top: 14px; left: 14px; }
+.tag { border-radius: 3px; background: #2c3447; color: white; font-size: 9px; text-transform: uppercase; letter-spacing: .05em; }
+.tag-peach { background: var(--accent); color: white; }
+.summer .poster:after, .poster.summer:after { background: linear-gradient(0deg, #3b180bf5, #341a0b05 80%); }
+.city .poster:after, .poster.city:after { background: linear-gradient(0deg, #130d32f5, #180c3a11 80%); }
+.nature .poster:after, .poster.nature:after { background: linear-gradient(0deg, #062b25f5, #1227220a 80%); }
+.film-card-meta { padding-top: 15px; }
+.film-card-meta h3 { font-size: 16px; line-height: 1.35; }
+.film-card-meta p { font-size: 10px; margin-top: 5px; }
+.circle-arrow { color: #ff7c95; border-color: #414a5d; }
+
+/* Kategorie → dny → nadpis → filtry → řádky programu */
+.program-title-block { margin-top: 32px; }
+.program-title-block .eyebrow { margin-bottom: 10px; }
+.program-label { color: var(--muted); font-size: 9px; }
+.live-dot { background: var(--accent); }
+.segmented { gap: 0; padding: 0; border-radius: 0; background: transparent; border-bottom: 1px solid var(--line); }
+.segmented button { min-width: 95px; padding: 11px 24px; background: transparent; border: 0; border-bottom: 3px solid transparent; border-radius: 0; color: #b8c1d3; text-transform: uppercase; letter-spacing: .06em; font-size: 11px; box-shadow: none; }
+.segmented button:hover { color: white; }
+.segmented button[aria-pressed=true] { color: white; background: #ed30490c; border-bottom-color: var(--accent); box-shadow: none; }
+.date-picker-row { margin-top: 22px; gap: 12px; }
+.days { min-width: 0; gap: 7px; scrollbar-color: #65728c transparent; }
+.day { min-width: 73px; padding: 12px 7px; border-radius: 4px; background: var(--surface); border-color: #444d61; color: #bcc5d6; }
+.day strong { color: white; font-size: 17px; }
+.day:hover { border-color: #a1aec8; }
+.day[aria-pressed=true] { background: var(--accent); border-color: var(--accent); color: white; }
+.date-icon { height: 67px; min-width: 50px; background: transparent; border-color: #68738a; color: white; font-size: 11px; }
+.date-icon:hover { background: var(--surface-alt); }
+.filters { grid-template-columns: 1fr 205px 175px; padding-block: 21px; }
+.field-control { min-width: 0; }
+.field-control .icon { color: #b9c4d9; }
+.field-control input, .field-control select { min-width: 0; border-radius: 4px; background: var(--surface); border-color: #555e73; color: white; }
+.field-control input::placeholder { color: #b7c1d4; }
+.results-info { margin-top: 19px; }
+.screening { grid-template-columns: 155px 1fr 155px; padding: 23px 0; gap: 26px; }
+.screening-thumb { height: 110px; border-radius: 4px; border: 1px solid #414b60; }
+.screening h3 { font-size: 21px; }
+.screening h3 a:hover { color: #ff9caf; }
+.screening-sub .age { border-color: #717c93; color: #e0e6f2; }
+.show-meta { color: #d9dfeb; margin-top: 13px; }
+.show-meta strong { padding: 3px 9px; border: 1px solid #78849e; border-radius: 3px; color: white; font-size: 12px; }
+.show-meta span + span:before { color: #a1acc2; }
+.screening-buy > strong { color: #d4dced; }
+.screening-buy .btn { min-height: 41px; }
+.empty-state .lead { margin-inline: auto; }
+.pagination button { background: var(--surface); border-color: #59657e; }
+.pagination button[aria-current=page] { background: var(--accent); border-color: var(--accent); }
+
+/* Klubová karta a patička */
+.club-banner { border: 1px solid #634556; border-radius: 6px; background: #221922; }
+.club-content { padding: 42px 45px; }
+.club-content .eyebrow { color: #f1b7c8; font-size: 9px; }
+.club-content h2 { font-size: 39px; }
+.club-content p { color: #d0bccb; font-size: 12px; }
+.club-art { background: radial-gradient(ellipse at 45% 45%, #71324e, #251923 75%); }
+.club-art:before, .club-art:after { border-color: #c393a44d; }
+.member-card { border: 1px solid #ffffff4d; background: linear-gradient(125deg, #d91b3c, #9b173a 65%, #531832); color: white; box-shadow: 0 20px 40px #0006; }
+.member-card b { font: 700 34px/1 var(--display); letter-spacing: .02em; }
+.member-card span { font: 700 14px/1.4 var(--body); letter-spacing: -.025em; }
+.site-footer { background: #090a0d; border-top: 1px solid #303644; }
+.footer-grid h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.footer-grid p, .footer-grid a, .footer-grid dl { color: #b8c1d2; }
+.footer-grid .brand { color: white; }
+.footer-grid .brand-name b { font-size: 28px; }
+.footer-grid .text-link { color: white; margin-top: 12px; font-size: 10px; }
+.footer-links { gap: 4px; }
+.footer-links a:hover { color: white; }
+.footer-bottom { border-color: #303644; color: #a6b1c7; font-size: 9px; }
+
+/* Společný motiv všech podstránek */
+.page-heading { padding-top: 46px; padding-bottom: 36px; }
+.page-heading .eyebrow, .account-top .eyebrow { color: #f988a0; }
+.page-heading h1 { font-size: clamp(38px, 4.8vw, 57px); }
+.breadcrumb { font-size: 10px; color: #b1bed7; }
+.breadcrumb a:hover { color: white; }
+.info-card, .snack-card, .benefit, .seat-panel, .reservation-card { background: var(--surface); border-color: #454e61; border-radius: 6px; }
+.benefit { border-top: 3px solid var(--accent); }
+.benefit .icon { color: #ff849d; }
+.notice { background: #202b40; color: #d4dff4; border: 1px solid #526786; border-left: 3px solid #afc6ed; border-radius: 4px; }
+.notice-error { background: #44232f; color: #ffd1de; border-color: #a95a70; }
+.contact-hours li { border-color: #444e63; }
+.map-illustration { background: #222b3b; border: 1px solid #4d5d79; }
+.map-illustration:before { background: #46536b; box-shadow: 0 0 0 1px #687994; }
+.map-pin { background: var(--accent); color: white; }
+summary::marker { color: #ff849d; }
+.snack-hero { background: #2d231c; border: 1px solid #7e5b3e; border-radius: 6px; }
+.snack-hero-content .eyebrow { color: #ffcd83; }
+.snack-hero h2 { font-size: 47px; }
+.snack-hero p { color: #dec5ac; font-size: 12px; }
+.snack-hero p strong { color: #ffe4b3; }
+.price-list li { color: #cad3e4; font-size: 11px; }
+.price-list b { color: white; }
+.detail-hero { border: 1px solid #46536d; border-radius: 6px; }
+.detail-hero:after { background: linear-gradient(0deg, #0c101af5, #0c101a22); }
+.detail-title h1 { font-size: clamp(38px, 5vw, 65px); }
+.detail-grid h2 { font-size: 31px; }
+.detail-grid p { color: #b8c2d5; font-size: 13px; }
+.film-info { font-size: 11px; }
+.show-option strong { font-size: 14px; }
+.storyboard { background: #111a2b; border: 1px solid #546582; }
+.storyboard img { opacity: .4; }
+.storyboard-caption h3 { font: 700 39px/1.15 var(--display); text-transform: uppercase; }
+
+/* Formuláře a dialogová okna nad ztmavenou stránkou */
+.form-field label { font-size: 11px; }
+.form-field input, .form-field textarea, .form-field select { background: #111722; border-color: #687995; color: white; font-size: 12px; border-radius: 4px; }
+.form-field input::placeholder { color: #b0bdd5; }
+.form-field input[aria-invalid=true], .form-field textarea[aria-invalid=true] { border-color: #ff8ca6; }
+.form-error { color: #ffadc1; }
+.check-label { color: #ccd6e8; font-size: 10px; }
+.check-label input { accent-color: var(--accent); }
+.dialog { background: #191f2c; border: 1px solid #647590; border-top: 3px solid var(--accent); border-radius: 7px; color: white; box-shadow: 0 30px 120px #000a; }
+.dialog::backdrop { background: #04050bbf; backdrop-filter: blur(5px); }
+.dialog h2 { font-size: 33px; }
+.dialog > .eyebrow { color: #f988a0; }
+.dialog > .demo-note { font-size: 10px; margin-bottom: 0; }
+.dialog-close { border-color: #7889a5; }
+.dialog-close:hover { background: #35445f; }
+.dialog-switch button, .forgot-button { color: white; text-underline-offset: 4px; }
+.toast { background: #26344e; border: 1px solid #7c90b6; border-left: 3px solid var(--accent); color: white; }
+.noscript-note { background: #472838; color: #ffd5e2; }
+
+/* Sál, souhrn rezervace, potvrzení a profil */
+.cinema-screen { border-top-color: #c9d6ef; color: #c9d6ef; }
+.cinema-screen:after { background: linear-gradient(#c9d6ef24, transparent); }
+.steps b { border-color: #7a8ba9; }
+.steps .active { color: white; }
+.steps .active b { background: var(--accent); border-color: var(--accent); }
+.seat { background: #3e4e6d; border: 1px solid #869bc2; border-bottom: 4px solid #2a354c; border-radius: 7px 7px 4px 4px; color: white; }
+.seat:hover { background: #5d729a; }
+.seat[aria-pressed=true] { background: var(--accent); border-color: #ff97ad; border-bottom-color: #a52037; color: white; }
+.seat:disabled { background: #2d3544; border-color: #4c5a74; border-bottom-color: #1a2233; color: #b1bfd7; opacity: .65; }
+.seat-key { background: #3e4e6d; border-color: #869bc2; }
+.seat-key.selected { background: var(--accent); border-color: #ff97ad; }
+.seat-key.occupied { background: #2d3544; border-color: #4c5a74; }
+.booking-summary { background: #1d2230; border-color: #64536b; border-top: 3px solid var(--accent); border-radius: 6px; }
+.booking-summary h2 { font-size: 29px; }
+.booking-summary .summary-line { color: #ccd6e8; font-size: 11px; }
+.booking-summary .summary-line strong { max-width: 160px; text-align: right; overflow-wrap: anywhere; color: white; }
+.booking-summary .summary-line.total { color: white; font-size: 20px; }
+.booking-success { background: var(--surface); border-color: #4d5b75; border-top: 3px solid var(--accent); }
+.success-icon { background: #243c33; border: 1px solid #779a85; color: #b1f6ce; font-size: 24px; }
+.ticket { background: #111a2b; border-color: #91a8d0; }
+.ticket-code { color: #ffadc1; overflow-wrap: anywhere; font-size: 22px; }
+.reservation-card code { color: #ffadc1; }
+
+/* Tablet — stále tři plakáty a náhled vedle údajů o projekci */
+@media (max-width: 1180px) {
+  .container { width: calc(100% - 64px); }
+  .header-inner { gap: 29px; }
+  .desktop-nav { gap: 21px; }
+  .header-search { display: none; }
+  .poster-track { gap: 30px; padding-inline: 58px; }
+  .poster-title { font-size: 33px; }
+  .hero-content { padding-left: 42px; }
+  .hero-bottom { left: 42px; }
+}
+@media (max-width: 900px) {
+  .container { width: calc(100% - 48px); }
+  .site-header { height: 78px; }
+  .header-inner { gap: 23px; }
+  .desktop-nav { gap: 17px; }
+  .desktop-nav a { font-size: 10px; }
+  .desktop-nav a[aria-current=page]:after { bottom: 0; }
+  .hero { min-height: 440px; }
+  .hero-content { padding: 40px 36px 68px; max-width: 600px; }
+  .hero h1 { font-size: 58px; }
+  .hero-bottom { left: 36px; }
+  .poster-track { gap: 22px; padding-inline: 48px; }
+  .poster-title { font-size: 26px; left: 16px; right: 16px; bottom: 20px; }
+  .poster-title small { font-size: 7px; }
+  .poster .tag { top: 10px; left: 10px; font-size: 8px; padding: 5px 7px; }
+  .film-card-meta h3 { font-size: 14px; }
+  .film-card-meta p { font-size: 9px; }
+  .circle-arrow { display: none; }
+  .filters { grid-template-columns: 1fr 175px 155px; }
+  .club-content { padding: 32px; }
+  .club-content h2 { font-size: 32px; }
+  .snack-hero h2 { font-size: 39px; }
+}
+
+/* Mobil — sbalená navigace, jeden posuvný plakát, svislý obsah */
+@media (max-width: 700px) {
+  .container { width: calc(100% - 36px); }
+  .section { padding-block: 38px; }
+  .site-header { height: 72px; }
+  .header-inner { gap: 12px; }
+  .header-actions { gap: 14px; }
+  .header-actions > .login-link { font-size: 10px; }
+  .brand-name b { font-size: 26px; }
+  .brand-name small { font-size: 7px; }
+  .menu-button { border-color: #7183a3; font-size: 10px; }
+  .mobile-nav.is-open { background: #191f2c; border-bottom: 2px solid var(--accent); box-shadow: 0 15px 40px #0008; }
+  .mobile-nav a, .mobile-nav button { font-size: 12px; border-radius: 0; }
+  .mobile-nav [aria-current=page] { color: #ffadc1; }
+  .hero { min-height: 407px; }
+  .hero-content { padding: 31px 25px 68px; }
+  .hero h1 { font-size: clamp(40px, 8.7vw, 57px); line-height: 1.08; }
+  .hero .eyebrow { font-size: 8px; letter-spacing: .11em; margin-bottom: 20px; }
+  .hero .eyebrow:before { width: 13px; }
+  .hero:after { background: linear-gradient(90deg, #080c15eb, #080c1575), linear-gradient(0deg, #080c15c9, transparent 60%); }
+  .hero-copy { max-width: 295px; font-size: 12px; margin-top: 18px; }
+  .hero-actions { margin-top: 22px; gap: 10px; }
+  .hero-actions .btn { min-height: 43px; padding: 11px 16px; gap: 8px; font-size: 10px; }
+  .hero-bottom { left: 25px; right: 23px; bottom: 20px; }
+  .hero-credit { font-size: 8px; max-width: 140px; text-align: right; }
+  .hero-dots, .hero-dots button { gap: 7px; }
+  .hero-dots button, .hero-dots button[aria-current=true] { width: 23px; }
+  .poster-section { padding-block: 29px 34px; }
+  .poster-head h2 { font-size: 28px; }
+  .poster-head .eyebrow { font-size: 9px; }
+  .poster-track { gap: 24px; padding: 0 43px 10px; scroll-snap-type: x mandatory; }
+  .film-card { flex: 0 0 100%; min-width: 0; max-width: 100%; scroll-snap-align: center; }
+  .poster { height: auto; aspect-ratio: 3 / 4; }
+  .poster-title { font-size: clamp(30px, 6.7vw, 42px); left: 22px; right: 22px; bottom: 25px; }
+  .poster-title small { font-size: 8px; }
+  .poster .tag { top: 14px; left: 14px; font-size: 9px; padding: 6px 8px; }
+  .film-card-meta h3 { font-size: 16px; }
+  .film-card-meta p { font-size: 10px; }
+  .circle-arrow { display: flex; }
+  .carousel-controls .icon-btn { top: calc(50% + 5px); width: 32px; height: 38px; border-radius: 4px; }
+  .program-title-block { margin-top: 23px; }
+  .program-title-block h2 { font-size: 32px; }
+  .program-label { font-size: 8px; letter-spacing: .11em; }
+  .segmented { width: 100%; }
+  .segmented button { flex: 1; min-width: 0; padding: 10px 17px; font-size: 10px; }
+  .date-picker-row { margin-top: 16px; gap: 8px; }
+  .day { min-width: 62px; padding: 10px 5px; font-size: 9px; }
+  .day strong { font-size: 16px; }
+  .date-icon { min-width: 40px; height: 61px; padding: 10px; }
+  .filters { grid-template-columns: 1fr 1fr; gap: 10px; padding: 17px 0; }
+  .screening { grid-template-columns: 110px 1fr; gap: 13px 16px; padding: 22px 0; }
+  .screening-thumb { height: 112px; }
+  .screening h3 { font-size: 18px; }
+  .screening-buy { text-align: left; }
+  .screening-buy > strong { font-size: 10px; }
+  .screening-buy .btn { min-height: 36px; padding: 9px 12px; gap: 7px; font-size: 10px; }
+  .screening-buy .btn .icon { width: 15px; height: 15px; }
+  .show-meta { margin-top: 9px; }
+  .show-meta strong { font-size: 11px; padding: 2px 6px; }
+  .club-content { padding: 30px; }
+  .club-content h2 { font-size: 35px; }
+  .footer-grid .brand-name b { font-size: 25px; }
+  .footer-grid h3 { font-size: 10px; }
+  .page-heading { padding-top: 30px; padding-bottom: 29px; }
+  .page-heading h1 { font-size: 41px; }
+  .page-heading .lead { font-size: 13px; }
+  .detail-title h1 { font-size: 43px; }
+  .dialog h2 { font-size: 30px; }
+  .snack-hero h2 { font-size: 41px; }
+  .seat { border-bottom-width: 3px; }
+  .booking-success h2 { font-size: 32px; }
+  .ticket-code { font-size: 19px; }
+  .account-top h1 { font-size: 36px; }
+  .storyboard-caption h3 { font-size: 28px; }
+}
+@media (max-width: 400px) {
+  .container { width: calc(100% - 28px); }
+  .header-actions { gap: 10px; }
+  .hero-content { padding-inline: 21px; }
+  .hero h1 { font-size: 40px; }
+  .hero-actions .btn { padding-inline: 12px; }
+  .hero-actions .btn .icon { width: 15px; height: 15px; }
+  .hero-bottom { left: 21px; right: 21px; }
+  .hero-credit { font-size: 7px; }
+  .poster-track { padding-inline: 37px; }
+  .poster-title { font-size: 31px; left: 18px; right: 18px; }
+  .film-card-meta h3 { font-size: 14px; }
+  .film-card-meta p { font-size: 9px; }
+  .film-card-meta .circle-arrow { display: none; }
+  .screening { grid-template-columns: 1fr; }
+  .screening-thumb { height: 170px; }
+  .screening h3 { font-size: 20px; }
+  .club-content { padding: 26px; }
+  .club-content h2 { font-size: 32px; }
+}
+
+/* Potvrzení se tiskne černě na bílém podkladu. */
+@media print {
+  :root { color-scheme: light; }
+  html { background: white; }
+  body::before, body::after { display: none; }
+  body { background: white; color: #111; }
+  .page-heading .eyebrow, .muted, .demo-note { color: #444; }
+  .booking-success, .ticket, .success-icon { background: white; color: #111; }
+  .booking-success { border: 0; }
+  .ticket { border-color: #444; }
+  .ticket-code { color: #111; }
+}
