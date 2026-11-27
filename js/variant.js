@@ -21,6 +21,7 @@
   }
 
   function renderPosterTimes() {
+    // Časy promítání pod plakáty nezobrazujeme.
     for (const card of document.querySelectorAll('#poster-track .film-card')) {
       const movie = getMovieById(new URL(card.href).searchParams.get('id'));
       const shows = screenings.filter(show => show.day === start && show.filmId === movie.id);
