@@ -19,19 +19,6 @@
         return `<a class="time-chip${formatClass}" href="rezervace.html?show=${encodeURIComponent(show.id)}" title="${info}" aria-label="${movie.title}, ${show.time}, ${info}"><span>${show.time}</span><small>${badge}</small></a>`;
       }).join('');
   }
-
-  function renderPosterTimes() {
-    // Časy promítání pod plakáty nezobrazujeme.
-    for (const card of document.querySelectorAll('#poster-track .film-card')) {
-      const movie = getMovieById(new URL(card.href).searchParams.get('id'));
-      const shows = screenings.filter(show => show.day === start && show.filmId === movie.id);
-      let section = card.parentElement;
-      if (!section.classList.contains('poster-with-times')) {
-        section = document.createElement('div');
-        section.className = 'poster-with-times';
-        card.replaceWith(section);
-        section.append(card, document.createElement('div'));
-      }
       const panel = section.lastElementChild;
       panel.className = 'poster-options';
       panel.innerHTML = shows.length
